@@ -3,182 +3,193 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content=""Unlock restful sleep with expert tips and tricks in our beginner's guide.""/>
-  <meta property="og:title" content="The Beginner's Guide to Deep, Restful Sleep"/>
-  <meta property="og:description" content=""Unlock restful sleep with expert tips and tricks in our beginner's guide.""/>
-  <title>The Beginner's Guide to Deep, Restful Sleep | Daily Guides</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <meta name="description" content=""Break the cycle of emotional eating and develop a healthier relationship with food.""/>
+  <meta property="og:title" content="How to Stop Emotional Eating for Good"/>
+  <meta property="og:description" content=""Break the cycle of emotional eating and develop a healthier relationship with food.""/>
+  <title>How to Stop Emotional Eating for Good</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --purple: #7c3aed; --purple-dark: #5b21b6; --purple-light: #ede9fe;
-      --gold: #f59e0b; --text: #1e1b4b; --muted: #6b7280; --bg: #f8fafc;
+      --ink: #1a1a2e; --ink-light: #4a4a6a; --accent: #2563eb;
+      --accent-light: #eff6ff; --border: #e5e7eb; --bg: #fafaf8; --white: #ffffff;
     }
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
-
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.75; }
+    .topbar {
+      background: var(--white); border-bottom: 1px solid var(--border);
+      padding: 14px 24px; display: flex; justify-content: space-between;
+      align-items: center; font-size: 0.82rem; color: var(--ink-light);
+    }
+    .topbar-logo { font-family: 'Lora', serif; font-weight: 700; font-size: 1rem; color: var(--ink); }
     .hero {
-      background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 50%, #7c3aed 100%);
-      color: white; padding: 90px 24px 110px; text-align: center; position: relative; overflow: hidden;
+      background: var(--white); border-bottom: 1px solid var(--border);
+      padding: 72px 24px 64px; text-align: center;
     }
-    .hero::before {
-      content: ''; position: absolute; inset: 0; opacity: 0.04;
-      background-image: radial-gradient(circle, #fff 1px, transparent 1px);
-      background-size: 32px 32px;
-    }
-    .badge {
-      display: inline-block; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.5);
-      color: #fde68a; padding: 6px 18px; border-radius: 999px; font-size: 12px;
-      font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 28px;
+    .hero-inner { max-width: 680px; margin: 0 auto; }
+    .category-tag {
+      display: inline-block; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
     }
     .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 900; line-height: 1.12;
-      max-width: 820px; margin: 0 auto 20px; letter-spacing: -0.025em;
+      font-family: 'Lora', serif; font-size: clamp(1.9rem, 4vw, 3rem);
+      font-weight: 700; line-height: 1.2; margin-bottom: 16px; letter-spacing: -0.02em;
     }
-    .hero h1 em { color: #fde68a; font-style: normal; }
-    .tagline { font-size: clamp(1rem, 2vw, 1.2rem); opacity: 0.8; max-width: 540px; margin: 0 auto 44px; }
-    .hero-cta {
-      display: inline-block; background: var(--gold); color: #1c1400;
-      padding: 20px 52px; border-radius: 14px; font-size: 1.15rem; font-weight: 800;
-      text-decoration: none; transition: all .25s; box-shadow: 0 8px 32px rgba(245,158,11,0.45);
-      position: relative; z-index: 1;
+    .hero-tagline { font-size: 1.05rem; color: var(--ink-light); max-width: 520px; margin: 0 auto 36px; }
+    .hero-meta {
+      font-size: 0.8rem; color: var(--ink-light); margin-bottom: 32px;
+      display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
     }
-    .hero-cta:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(245,158,11,0.55); }
-    .hero-sub { margin-top: 18px; font-size: 0.82rem; opacity: 0.55; letter-spacing: 0.03em; }
-
-    .trust {
-      background: white; border-bottom: 1px solid #e5e7eb;
-      display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
-      padding: 18px 24px; font-size: 0.85rem; color: var(--muted); font-weight: 600;
+    .hero-meta span { display: flex; align-items: center; gap: 5px; }
+    .btn-primary {
+      display: inline-block; background: var(--accent); color: white;
+      padding: 16px 40px; border-radius: 8px; font-size: 1rem; font-weight: 600;
+      text-decoration: none; transition: background 0.2s, transform 0.2s;
     }
-    .trust span { display: flex; align-items: center; gap: 7px; }
-
-    .wrap { max-width: 780px; margin: 0 auto; padding: 72px 24px; }
-    .label {
-      text-align: center; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--purple); margin-bottom: 10px;
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); }
+    .hero-note { margin-top: 14px; font-size: 0.78rem; color: var(--ink-light); }
+    .section { max-width: 680px; margin: 0 auto; padding: 56px 24px; }
+    .section + .section { border-top: 1px solid var(--border); }
+    .section-label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
     }
-    .wrap h2 {
-      text-align: center; font-size: clamp(1.6rem, 3vw, 2.3rem);
-      font-weight: 800; line-height: 1.2; margin-bottom: 36px; letter-spacing: -0.02em;
+    .section h2 {
+      font-family: 'Lora', serif; font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      font-weight: 700; line-height: 1.25; margin-bottom: 28px; letter-spacing: -0.02em;
     }
-
-    .learn {
-      background: var(--purple-light); border: 2px solid #c4b5fd;
-      border-radius: 18px; padding: 40px 44px;
+    .learn-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .learn-list li {
+      display: flex; align-items: flex-start; gap: 12px; font-size: 0.97rem;
+      padding: 14px 18px; background: var(--accent-light); border-radius: 8px;
+      border-left: 3px solid var(--accent);
     }
-    .learn ul { list-style: none; display: flex; flex-direction: column; gap: 16px; }
-    .learn li { font-size: 1.05rem; font-weight: 500; }
-
-    .card {
-      background: white; border-radius: 20px; padding: 52px;
-      box-shadow: 0 4px 32px rgba(0,0,0,0.07); border: 1px solid #f0f0f0;
+    .check { color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .preview-content { font-family: 'Lora', serif; font-size: 1.02rem; color: #2d2d4e; line-height: 1.85; }
+    .preview-content h2 { font-size: 1.15rem; font-weight: 600; color: var(--ink); margin: 24px 0 10px; font-family: 'Lora', serif; }
+    .preview-content p { margin-bottom: 16px; }
+    .blur-zone { position: relative; margin-top: 8px; }
+    .blurred { filter: blur(5px); user-select: none; pointer-events: none; opacity: 0.55; max-height: 140px; overflow: hidden; font-family: 'Lora', serif; font-size: 1.02rem; line-height: 1.85; }
+    .blur-fade { position: absolute; bottom: 0; left: 0; right: 0; height: 90px; background: linear-gradient(transparent, var(--bg)); }
+    .paywall-note {
+      text-align: center; margin-top: 24px; padding: 20px;
+      background: var(--white); border: 1px solid var(--border); border-radius: 8px;
+      font-size: 0.9rem; color: var(--ink-light);
     }
-    .card h2 { font-size: 1.25rem; color: var(--purple); font-weight: 700; margin-bottom: 12px; text-align:left; }
-    .card p { color: #374151; margin-bottom: 12px; }
-    .blur-zone { position: relative; margin-top: 4px; }
-    .blurred { filter: blur(6px); user-select: none; pointer-events: none; opacity: 0.5; max-height: 160px; overflow: hidden; }
-    .blur-fade {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 100px;
-      background: linear-gradient(transparent, white);
+    .cta-section { background: var(--ink); color: white; padding: 56px 24px; text-align: center; }
+    .cta-inner { max-width: 560px; margin: 0 auto; }
+    .cta-section h2 {
+      font-family: 'Lora', serif; font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 700; line-height: 1.2; margin-bottom: 12px;
     }
-    .lock-msg { text-align: center; margin-top: 20px; color: var(--muted); font-size: 0.9rem; font-weight: 500; }
-
-    .cta-box {
-      background: linear-gradient(135deg, #1e1b4b, #5b21b6);
-      color: white; border-radius: 24px; padding: 64px 52px; text-align: center;
-      box-shadow: 0 24px 64px rgba(91,33,182,0.35);
+    .cta-section p { color: rgba(255,255,255,0.65); font-size: 0.95rem; margin-bottom: 32px; }
+    .price-row { display: flex; align-items: baseline; justify-content: center; gap: 8px; margin-bottom: 28px; }
+    .price-amount { font-size: 2.8rem; font-weight: 700; color: white; line-height: 1; }
+    .price-desc { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+    .btn-cta {
+      display: inline-block; background: white; color: var(--ink);
+      padding: 17px 44px; border-radius: 8px; font-size: 1rem; font-weight: 600;
+      text-decoration: none; transition: all 0.2s; width: 100%; max-width: 380px;
     }
-    .cta-box h2 { color: white; margin-bottom: 6px; }
-    .price { font-size: 4rem; font-weight: 900; color: #fde68a; line-height: 1; margin: 18px 0 4px; }
-    .price-note { opacity: 0.65; font-size: 0.88rem; margin-bottom: 36px; }
-    .buy-btn {
-      display: inline-block; background: var(--gold); color: #1c1400;
-      padding: 22px 64px; border-radius: 14px; font-size: 1.2rem; font-weight: 800;
-      text-decoration: none; transition: all .25s; box-shadow: 0 8px 32px rgba(245,158,11,0.5);
-      width: 100%; max-width: 420px;
+    .btn-cta:hover { background: #f0f0f0; transform: translateY(-2px); }
+    .cta-guarantee { margin-top: 16px; font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+    .notice {
+      background: #fffbeb; border-top: 1px solid #fde68a; border-bottom: 1px solid #fde68a;
+      text-align: center; padding: 12px 24px; font-size: 0.83rem; color: #92400e; font-weight: 500;
     }
-    .buy-btn:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(245,158,11,0.6); }
-    .secure { margin-top: 18px; font-size: 0.82rem; opacity: 0.6; }
-
-    .urgency {
-      background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px;
-      padding: 14px 20px; text-align: center; font-size: 0.88rem;
-      font-weight: 600; color: #92400e; margin-top: 24px;
+    footer {
+      text-align: center; padding: 40px 24px; font-size: 0.78rem;
+      color: var(--ink-light); border-top: 1px solid var(--border); background: var(--white);
     }
-
-    footer { text-align: center; padding: 44px 24px; font-size: 0.78rem; color: var(--muted); border-top: 1px solid #e5e7eb; }
-
+    footer a { color: var(--ink-light); text-decoration: underline; }
+    .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 12px; }
     @media(max-width:600px) {
-      .trust { gap: 16px; font-size: 0.78rem; }
-      .cta-box, .card, .learn { padding: 28px 20px; }
-      .price { font-size: 3rem; }
+      .hero { padding: 48px 20px 40px; }
+      .section { padding: 40px 20px; }
+      .cta-section { padding: 48px 20px; }
     }
   </style>
 </head>
 <body>
 
-<section class="hero">
-  <div class="badge">📘 Today's Featured Guide — May 09, 2026</div>
-  <h1>The Beginner's Guide to Deep, Restful Sleep</h1>
-  <p class="tagline">Sleep Better Tonight With Proven Restful Sleep Strategies</p>
-  <a href="#" class="hero-cta">Get Instant Access — $4.99 →</a>
-  <p class="hero-sub">⚡ Instant access &nbsp;·&nbsp; 📱 Read on any device &nbsp;·&nbsp; ✅ One-time payment</p>
-</section>
-
-<div class="trust">
-  <span>🔒 Secure Checkout</span>
-  <span>⚡ Instant Access</span>
-  <span>💳 Powered by Stripe</span>
-  <span>📘 New guide every day</span>
+<div class="topbar">
+  <span class="topbar-logo">Daily Guides</span>
+  <span>New guide every day</span>
 </div>
 
-<div class="wrap">
-  <p class="label">What's inside</p>
-  <h2>Here's exactly what you'll learn</h2>
-  <div class="learn"><ul><li>✅ Sleep environment is very important</li>
-<li>✅ Establish bedtime routines daily</li>
-<li>✅ Avoid caffeine at night</li>
-<li>✅ Relax before sleeping time</li>
-<li>✅ Limit screen time before</li></ul></div>
-</div>
-
-<div class="wrap" style="padding-top:0">
-  <p class="label">Free preview</p>
-  <h2>Read the opening — free</h2>
-  <div class="card">
-    <p>🌙 Introduction to Deep, Restful Sleep</p>
-<p>Deep, restful sleep is essential for our physical and mental well-being. During sleep, our body repairs and regenerates tissues, builds bone and muscle, and strengthens our immune system. However, many of us struggle to get the sleep we need, and it can have serious consequences on our health and productivity. In this guide, we will explore the importance of deep, restful sleep and provide practical tips on how to achieve it.</p>
-<p>📊 Understanding Sleep Cycles</p>
-<p>Before we dive into the tips, it's essential to understand the different stages of sleep. Sleep is divided into two main categories: non-rapid eye movement (NREM) sleep and rapid eye movement (REM) sleep. NREM sleep is further divided into three stages, each with distinct brain wave patterns. Stage 1 is the lightest stage of sleep, where we drift in and out of consciousness. Stage 2 is a deeper stage of sleep, where our heart rate and body temperature decrease. Stage 3 is the deepest stage of sleep, also known as slow-wave sleep, where our brain waves slow down, and it's difficult to wake up.</p>
-<p>REM sleep, on the other hand, is where we experience vivid dreams and our brain is active. It's also the stage where we process and consolidate memories. A full sleep cycle typically lasts around 90-120 minutes, and we go through 3-5 cycles per night. Understanding these sleep cycles can help us optimize our sleep environment and develop habits that promote deep, restful sleep.</p>
-    <div class="blur-zone">
-      <div class="blurred"><p>🏠 Creating a Sleep-Conducive Environment</p>
-<p>Our sleep environment plays a significant role in determining the quality of our sleep. Here are some tips to create a sleep-conducive environment:</p>
-<p>* <strong>Invest in a comfortable mattress</strong>: A good mattress can make a huge difference in the quality of our sleep. Look for a mattress that provides the right level of support and comfort for your body.</p>
-<p>* <strong>Keep it dark</strong>: Darkness helps regulate our circadian rhythms, which control our sleep-wake cycle. Use blackout curtains or blinds to keep your bedroom dark.</p>
-<p>* <strong>Keep it quiet</strong>: Noise can disrupt our sleep patterns, so it's essential to keep our bedroom quiet. Use earplugs or white noise machines to block out any external noise.</p>
-<</div>
-      <div class="blur-fade"></div>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="category-tag">📖 Today's Guide — May 09, 2026</div>
+    <h1>How to Stop Emotional Eating for Good</h1>
+    <p class="hero-tagline">Overcoming emotional eating requires self awareness and new habits.</p>
+    <div class="hero-meta">
+      <span>📄 ~800 words</span>
+      <span>⏱ 5 min read</span>
+      <span>✓ Practical & actionable</span>
     </div>
-    <p class="lock-msg">🔒 The rest is locked. Unlock the full guide below.</p>
+    <a href="https://buy.stripe.com/bJeaEX4sUdDn0M99dF9fW00" class="btn-primary">Read the full guide — $4.99</a>
+    <p class="hero-note">One-time payment · Instant access · No subscription</p>
   </div>
 </div>
 
-<div class="wrap" style="padding-top:0">
-  <div class="cta-box">
-    <p style="font-size:0.78rem;opacity:0.6;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Full guide</p>
-    <h2>The Beginner's Guide to Deep, Restful Sleep</h2>
-    <div class="price">$4.99</div>
-    <p class="price-note">One-time · Instant access · No subscription ever</p>
-    <a href="#" class="buy-btn">🔓 Unlock Full Guide Now →</a>
-    <p class="secure">🛡️ 100% secure · Powered by Stripe · Money-back if unsatisfied</p>
+<div class="section">
+  <div class="section-label">Inside this guide</div>
+  <h2>What you'll walk away with</h2>
+  <ul class="learn-list"><li><span class="check">✓</span> Recognize emotional eating triggers</li>
+<li><span class="check">✓</span> Identify hunger and fullness cues</li>
+<li><span class="check">✓</span> Develop self-care habits daily</li>
+<li><span class="check">✓</span> Create healthy food environment</li>
+<li><span class="check">✓</span> Manage stress effectively always</li></ul>
+</div>
+
+<div class="section">
+  <div class="section-label">Free preview</div>
+  <h2>Read the first section</h2>
+  <div class="preview-content"><p>🌞 Introduction to a Healthier You</p>
+<p>Emotional eating is a common struggle that many of us face. It's the tendency to turn to food for comfort, solace, or as a way to cope with emotions, rather than hunger. If you're reading this, chances are you're tired of feeling like you're in a constant battle with your emotions and your appetite. The good news is that you can stop emotional eating for good, and it starts with understanding the reasons behind it. In this guide, we'll walk you through a step-by-step process to help you develop a healthier relationship with food and your emotions.</p>
+<p>📝 Identifying Your Triggers 📝</p>
+<p>The first step to stopping emotional eating is to identify your triggers. What are the emotions, situations, or events that make you want to reach for food? Is it stress, boredom, happiness, or sadness? Do you eat when you're around certain people or in certain places? Take some time to reflect on your eating habits and emotions. Keep a food diary or journal to track when you eat, what you eat, and how you're feeling. This will help you pinpoint your triggers and become more aware of your emotional eating patterns.</p>
+<p>🍴 Understanding Your Hunger 🍴</p></div>
+  <div class="blur-zone">
+    <div class="blurred preview-content"><p>It's essential to distinguish between physical hunger and emotional hunger. Physical hunger is a natural sensation that signals your body's need for nourishment. Emotional hunger, on the other hand, is a craving for comfort, distraction, or a way to cope with emotions. Ask yourself:</p>
+<p>- Is my stomach growling?</p>
+<p>- Am I feeling weak or lightheaded?</p>
+<p>- Do I need to eat to provide my body with energy?</p>
+<p>If the answer is yes, then you're likely experiencing physical hunger. However, if you're eating to calm your nerves, reward yourself, or fill a void, then you're likely experiencing emotional hunger.</p>
+<p>💆‍♀️ Developing Emotional Awareness 💆‍♀️</p>
+<p>Emotional awaren</div>
+    <div class="blur-fade"></div>
   </div>
-  <div class="urgency">⏰ This guide rotates daily — a new topic publishes tomorrow!</div>
+  <div class="paywall-note">
+    <strong>End of free preview.</strong> The full guide continues with practical steps you can use today.
+  </div>
+</div>
+
+<div class="cta-section">
+  <div class="cta-inner">
+    <h2>Get the complete guide</h2>
+    <p>Everything laid out clearly and practically. No fluff — just the stuff that works.</p>
+    <div class="price-row">
+      <span class="price-amount">$4.99</span>
+      <span class="price-desc">one-time</span>
+    </div>
+    <a href="https://buy.stripe.com/bJeaEX4sUdDn0M99dF9fW00" class="btn-cta">Get instant access →</a>
+    <p class="cta-guarantee">Secure payment via Stripe · 14-day refund if unsatisfied</p>
+  </div>
+</div>
+
+<div class="notice">
+  📅 A new guide publishes tomorrow — today's topic won't be here forever.
 </div>
 
 <footer>
-  © 2026 Daily Guides &nbsp;·&nbsp; New guide published every day
-  &nbsp;·&nbsp; <a href="mailto:support@dailyguides.com" style="color:inherit">Contact</a>
-  <br><br>Published May 09, 2026
+  <div class="footer-links">
+    <a href="/auto-income-bot/">Home</a>
+    <a href="/auto-income-bot/legal.html">Privacy Policy & Terms</a>
+    <a href="mailto:laila.barriosm@gmail.com">Contact</a>
+  </div>
+  <p>© 2026 Daily Guides · Independent publishing project · Switzerland</p>
+  <p style="margin-top:6px;font-size:0.72rem;color:#9ca3af">Guides are for informational purposes only and do not constitute professional advice.</p>
 </footer>
-</body></html>
+
+</body>
+</html>
