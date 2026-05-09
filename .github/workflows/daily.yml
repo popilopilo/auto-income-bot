@@ -1,0 +1,39 @@
+name: Daily Bot
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # Runs every day at 8am UTC
+  workflow_dispatch:      # Also lets you trigger it manually
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run bot
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_PRICE_ID: ${{ secrets.STRIPE_PRICE_ID }}
+        run: |
+          mkdir -p docs
+          python bot.py
+
+      - name: Push updated site
+        run: |
+          git config user.name "AutoBot"
+          git config user.email "bot@auto.com"
+          git add docs/
+          git commit -m "Daily update $(date)" || echo "Nothing to commit"
+          git push
