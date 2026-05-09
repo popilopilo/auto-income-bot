@@ -33,7 +33,7 @@ def groq(prompt, tokens=1200):
     r = requests.post(
         "https://api.groq.com/openai/v1/chat/completions",
         headers={"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"},
-        json={"model": "llama3-70b-8192",
+        json={"model": "llama-3.3-70b-versatile",
               "messages": [{"role": "user", "content": prompt}],
               "max_tokens": tokens}
     )
