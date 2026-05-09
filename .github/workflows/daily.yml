@@ -2,38 +2,44 @@ name: Daily Bot
 
 on:
   schedule:
-    - cron: '0 8 * * *'  # Runs every day at 8am UTC
-  workflow_dispatch:      # Also lets you trigger it manually
+    - cron: '0 10 * * *'
+  workflow_dispatch:
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests
+        run: pip install requests requests-oauthlib
 
       - name: Run bot
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-          STRIPE_PRICE_ID: ${{ secrets.STRIPE_PRICE_ID }}
-        run: |
-          mkdir -p docs
-          python bot.py
+          GROQ_API_KEY:            ${{ secrets.GROQ_API_KEY }}
+          STRIPE_SECRET_KEY:       ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_PRICE_ID:         ${{ secrets.STRIPE_PRICE_ID }}
+          SITE_URL:                ${{ secrets.SITE_URL }}
+          DEVTO_API_KEY:           ${{ secrets.DEVTO_API_KEY }}
+          TUMBLR_CONSUMER_KEY:     ${{ secrets.TUMBLR_CONSUMER_KEY }}
+          TUMBLR_CONSUMER_SECRET:  ${{ secrets.TUMBLR_CONSUMER_SECRET }}
+          TUMBLR_OAUTH_TOKEN:      ${{ secrets.TUMBLR_OAUTH_TOKEN }}
+          TUMBLR_OAUTH_SECRET:     ${{ secrets.TUMBLR_OAUTH_SECRET }}
+          TUMBLR_BLOG_NAME:        ${{ secrets.TUMBLR_BLOG_NAME }}
+        run: python bot.py
 
-      - name: Push updated site
+      - name: Push site
         run: |
           git config user.name "AutoBot"
           git config user.email "bot@auto.com"
           git add docs/
-          git commit -m "Daily update $(date)" || echo "Nothing to commit"
+          git commit -m "Daily update $(date)" || echo "Nothing new"
           git push
