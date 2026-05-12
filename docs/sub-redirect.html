@@ -18,32 +18,24 @@
     #content { display: none; }
   </style>
   <script>
-    // Simple hash function (same logic as Python's make_sub_code)
     async function makeSubCode(email) {
-      const salt = 'dailyguides2026';
-      const data = salt + email.toLowerCase().trim();
-      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(data));
-      const arr = Array.from(new Uint8Array(buf));
-      return arr.map(b => b.toString(16).padStart(2,'0')).join('').slice(0,12);
+      var salt = 'dailyguides2026';
+      var data = salt + email.toLowerCase().trim();
+      var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(data));
+      var arr = Array.from(new Uint8Array(buf));
+      return arr.map(function(b) { return b.toString(16).padStart(2,'0'); }).join('').slice(0,12);
     }
-
     window.onload = async function() {
-      // Get email from Stripe URL param if present, otherwise prompt
       var params = new URLSearchParams(window.location.search);
       var email = params.get('prefilled_email') || params.get('customer_email') || '';
-
       if (!email) {
         email = prompt('Please enter the email address you used to subscribe:') || '';
       }
-
       if (!email) {
         window.location.href = '/auto-income-bot/';
         return;
       }
-
       var code = await makeSubCode(email);
-
-      // Check blocklist
       try {
         var r = await fetch('/auto-income-bot/blocklist.json');
         var blocked = await r.json();
@@ -54,14 +46,12 @@
           return;
         }
       } catch(e) {}
-
       var archiveUrl = '/auto-income-bot/archive.html?sub=' + code;
       document.getElementById('loading').style.display = 'none';
       document.getElementById('archive-link').href = archiveUrl;
       document.getElementById('save-url').textContent = window.location.origin + archiveUrl;
       document.getElementById('content').style.display = 'block';
     };
-
     function copyLink() {
       var url = window.location.origin + document.getElementById('archive-link').getAttribute('href');
       navigator.clipboard.writeText(url).then(function() {
@@ -74,13 +64,10 @@
 </head>
 <body>
   <div class="box">
-    <div id="loading">
-      <div class="spinner"></div>
-      <strong>Setting up your access...</strong>
-    </div>
+    <div id="loading"><div class="spinner"></div><strong>Setting up your access...</strong></div>
     <div id="content">
       <h2>✓ Subscription active!</h2>
-      <p>Your personal archive link is ready. Save it somewhere safe — it's yours as long as your subscription is active.</p>
+      <p>Your personal archive link is ready. Save it somewhere safe.</p>
       <div class="save-url" id="save-url"></div>
       <button class="copy-btn" id="copy-btn" onclick="copyLink()">Copy my link</button>
       <br>

@@ -49,9 +49,8 @@
         window.location.href = '/auto-income-bot/';
         return;
       }
-      // Check blocklist
       fetch('/auto-income-bot/blocklist.json')
-        .then(r => r.json())
+        .then(function(r) { return r.json(); })
         .then(function(blocked) {
           if (blocked.includes(subCode)) {
             document.getElementById('content').innerHTML = '<div style="text-align:center;padding:60px 24px"><h2>Access revoked</h2><p style="margin-top:12px;color:#6b7280">Your subscription has been cancelled. <a href="https://buy.stripe.com/00wcN54sU1UF1Qd1Ld9fW02">Resubscribe here</a>.</p></div>';
