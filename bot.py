@@ -14,15 +14,13 @@ STRIPE_SINGLE_URL      = os.environ["STRIPE_SINGLE_URL"]
 STRIPE_SUB_URL         = os.environ["STRIPE_SUB_URL"]
 FORMSPREE_ID           = os.environ["FORMSPREE_ID"]
 
-GUIDE_KEY    = "dg7x9k2m"
-SUB_SALT     = "dailyguides2026"
-today        = datetime.date.today()
-DATE_STR     = today.strftime("%Y-%m-%d")
-GUIDE_URL    = f"{SITE_URL}/guides/{DATE_STR}.html"
-REDIRECT_URL = f"{SITE_URL}/redirect.html?key={GUIDE_KEY}"
+GUIDE_KEY  = "dg7x9k2m"
+SUB_SALT   = "dailyguides2026"
+today      = datetime.date.today()
+DATE_STR   = today.strftime("%Y-%m-%d")
+GUIDE_URL  = f"{SITE_URL}/guides/{DATE_STR}.html"
 
 def make_sub_code(email):
-    """Generate unique subscriber code from email."""
     raw = f"{SUB_SALT}{email.lower().strip()}"
     return hashlib.sha256(raw.encode()).hexdigest()[:12]
 
@@ -179,7 +177,6 @@ bullets_html = "\n".join(f'<li><span class="check">✓</span> {b}</li>' for b in
 
 os.makedirs("docs/guides", exist_ok=True)
 
-# ── Load / update guide index ─────────────────────────────────────────────────
 index_file = "docs/guides/index.json"
 all_guides = []
 if os.path.exists(index_file):
@@ -187,18 +184,18 @@ if os.path.exists(index_file):
         all_guides = json.load(f)
 if not any(g["date"] == DATE_STR for g in all_guides):
     all_guides.insert(0, {"date": DATE_STR, "topic": topic,
-                           "url": f"guides/{DATE_STR}.html", "tagline": tagline})
+                          "url": f"guides/{DATE_STR}.html", "tagline": tagline})
 with open(index_file, "w") as f:
     json.dump(all_guides, f)
 
-# ── Load blocklist ────────────────────────────────────────────────────────────
 blocklist_file = "docs/blocklist.json"
 blocklist = []
 if os.path.exists(blocklist_file):
     with open(blocklist_file) as f:
         blocklist = json.load(f)
 
-# ── Shared CSS ────────────────────────────────────────────────────────────────
+FONTS = '<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>'
+
 SHARED_CSS = """
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -221,8 +218,6 @@ SHARED_CSS = """
   .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 12px; flex-wrap: wrap; }
 """
 
-FONTS = '<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>'
-
 def page_footer():
     return f"""<footer>
   <div class="footer-links">
@@ -234,7 +229,7 @@ def page_footer():
   <p style="margin-top:6px;font-size:0.72rem;color:#9ca3af">Guides are informational only and do not constitute professional advice.</p>
 </footer>"""
 
-# ── GUIDE PAGE (buyers) ───────────────────────────────────────────────────────
+# ── GUIDE PAGE (buyers only) ──────────────────────────────────────────────────
 guide_page = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -245,11 +240,7 @@ guide_page = f"""<!DOCTYPE html>
   {FONTS}
   <style>
     {SHARED_CSS}
-    .access-bar {{
-      background: var(--green-light); border-bottom: 1px solid var(--green-border);
-      padding: 12px 24px; text-align: center; font-size: 0.85rem;
-      color: var(--green); font-weight: 500;
-    }}
+    .access-bar {{ background: var(--green-light); border-bottom: 1px solid var(--green-border); padding: 12px 24px; text-align: center; font-size: 0.85rem; color: var(--green); font-weight: 500; }}
     .article {{ max-width: 680px; margin: 0 auto; padding: 60px 24px 80px; }}
     .article-label {{ font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }}
     .article h1 {{ font-family: 'Lora', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.2; margin-bottom: 24px; letter-spacing: -0.02em; }}
@@ -257,10 +248,7 @@ guide_page = f"""<!DOCTYPE html>
     .article-body {{ font-family: 'Lora', serif; font-size: 1.05rem; color: #2d2d4e; line-height: 1.9; }}
     .article-body h2 {{ font-family: 'Lora', serif; font-size: 1.3rem; font-weight: 700; color: var(--ink); margin: 40px 0 14px; }}
     .article-body p {{ margin-bottom: 20px; }}
-    .save-box {{
-      margin-top: 48px; padding: 28px 32px; background: var(--white);
-      border: 1px solid var(--border); border-radius: 12px;
-    }}
+    .save-box {{ margin-top: 48px; padding: 28px 32px; background: var(--white); border: 1px solid var(--border); border-radius: 12px; }}
     .save-box h3 {{ font-size: 1rem; font-weight: 600; margin-bottom: 10px; }}
     .save-box p {{ font-size: 0.88rem; color: #6b7280; margin-bottom: 16px; line-height: 1.6; }}
     .save-url {{ background: #f3f4f6; border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; font-size: 0.78rem; color: #374151; word-break: break-all; font-family: monospace; margin-bottom: 12px; }}
@@ -327,7 +315,6 @@ def build_archive():
       <div class="card-tagline">{g.get('tagline','')}</div>
       <span class="card-cta">Read guide →</span>
     </a>"""
-
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -359,9 +346,8 @@ def build_archive():
         window.location.href = '/auto-income-bot/';
         return;
       }}
-      // Check blocklist
       fetch('/auto-income-bot/blocklist.json')
-        .then(r => r.json())
+        .then(function(r) {{ return r.json(); }})
         .then(function(blocked) {{
           if (blocked.includes(subCode)) {{
             document.getElementById('content').innerHTML = '<div style="text-align:center;padding:60px 24px"><h2>Access revoked</h2><p style="margin-top:12px;color:#6b7280">Your subscription has been cancelled. <a href="{STRIPE_SUB_URL}">Resubscribe here</a>.</p></div>';
@@ -385,7 +371,7 @@ def build_archive():
 </body>
 </html>"""
 
-# ── HOMEPAGE (public, shows all guides with buy buttons) ──────────────────────
+# ── HOMEPAGE ──────────────────────────────────────────────────────────────────
 def build_homepage():
     cards = ""
     for g in all_guides:
@@ -395,9 +381,8 @@ def build_homepage():
       <div class="card-date">{datetime.datetime.strptime(g['date'],'%Y-%m-%d').strftime('%B %d, %Y')}{badge}</div>
       <div class="card-title">{g['topic']}</div>
       <div class="card-tagline">{g.get('tagline','')}</div>
-      <a class="card-btn" href="/auto-income-bot/{g['url']}">Preview & buy — $1.99 →</a>
+      <a class="card-btn" href="/auto-income-bot/today.html">Preview & buy — $1.99 →</a>
     </div>"""
-
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -411,11 +396,7 @@ def build_homepage():
     .hero {{ background: var(--white); border-bottom: 1px solid var(--border); padding: 64px 24px 56px; text-align: center; }}
     .hero h1 {{ font-family: 'Lora', serif; font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 700; line-height: 1.2; margin-bottom: 14px; letter-spacing: -0.02em; }}
     .hero p {{ font-size: 1rem; color: var(--ink-light); max-width: 480px; margin: 0 auto 32px; }}
-    .sub-banner {{
-      display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;
-      background: var(--accent-light); border: 1px solid #bfdbfe; border-radius: 10px;
-      padding: 14px 24px; font-size: 0.88rem; color: #1e40af;
-    }}
+    .sub-banner {{ display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; background: var(--accent-light); border: 1px solid #bfdbfe; border-radius: 10px; padding: 14px 24px; font-size: 0.88rem; color: #1e40af; }}
     .sub-banner a {{ background: var(--accent); color: white; padding: 8px 18px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 0.85rem; }}
     .sub-banner a:hover {{ background: #1d4ed8; }}
     .wrap {{ max-width: 780px; margin: 0 auto; padding: 48px 24px; }}
@@ -451,7 +432,7 @@ def build_homepage():
 </body>
 </html>"""
 
-# ── SALES PAGE (individual guide preview + buy) ───────────────────────────────
+# ── SALES PAGE (today's guide preview + buy) ──────────────────────────────────
 sales_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -557,7 +538,7 @@ sales_html = f"""<!DOCTYPE html>
 </body>
 </html>"""
 
-# ── REDIRECT PAGE ─────────────────────────────────────────────────────────────
+# ── REDIRECT PAGE (Stripe sends single buyers here) ───────────────────────────
 redirect_page = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -591,7 +572,7 @@ redirect_page = f"""<!DOCTYPE html>
 </body>
 </html>"""
 
-# ── SUBSCRIBER REDIRECT (Stripe sends here, generates their unique code) ──────
+# ── SUBSCRIBER REDIRECT (Stripe sends subscribers here) ───────────────────────
 sub_redirect = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -612,32 +593,24 @@ sub_redirect = f"""<!DOCTYPE html>
     #content {{ display: none; }}
   </style>
   <script>
-    // Simple hash function (same logic as Python's make_sub_code)
     async function makeSubCode(email) {{
-      const salt = '{SUB_SALT}';
-      const data = salt + email.toLowerCase().trim();
-      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(data));
-      const arr = Array.from(new Uint8Array(buf));
-      return arr.map(b => b.toString(16).padStart(2,'0')).join('').slice(0,12);
+      var salt = '{SUB_SALT}';
+      var data = salt + email.toLowerCase().trim();
+      var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(data));
+      var arr = Array.from(new Uint8Array(buf));
+      return arr.map(function(b) {{ return b.toString(16).padStart(2,'0'); }}).join('').slice(0,12);
     }}
-
     window.onload = async function() {{
-      // Get email from Stripe URL param if present, otherwise prompt
       var params = new URLSearchParams(window.location.search);
       var email = params.get('prefilled_email') || params.get('customer_email') || '';
-
       if (!email) {{
         email = prompt('Please enter the email address you used to subscribe:') || '';
       }}
-
       if (!email) {{
         window.location.href = '/auto-income-bot/';
         return;
       }}
-
       var code = await makeSubCode(email);
-
-      // Check blocklist
       try {{
         var r = await fetch('/auto-income-bot/blocklist.json');
         var blocked = await r.json();
@@ -648,14 +621,12 @@ sub_redirect = f"""<!DOCTYPE html>
           return;
         }}
       }} catch(e) {{}}
-
       var archiveUrl = '/auto-income-bot/archive.html?sub=' + code;
       document.getElementById('loading').style.display = 'none';
       document.getElementById('archive-link').href = archiveUrl;
       document.getElementById('save-url').textContent = window.location.origin + archiveUrl;
       document.getElementById('content').style.display = 'block';
     }};
-
     function copyLink() {{
       var url = window.location.origin + document.getElementById('archive-link').getAttribute('href');
       navigator.clipboard.writeText(url).then(function() {{
@@ -668,13 +639,10 @@ sub_redirect = f"""<!DOCTYPE html>
 </head>
 <body>
   <div class="box">
-    <div id="loading">
-      <div class="spinner"></div>
-      <strong>Setting up your access...</strong>
-    </div>
+    <div id="loading"><div class="spinner"></div><strong>Setting up your access...</strong></div>
     <div id="content">
       <h2>✓ Subscription active!</h2>
-      <p>Your personal archive link is ready. Save it somewhere safe — it's yours as long as your subscription is active.</p>
+      <p>Your personal archive link is ready. Save it somewhere safe.</p>
       <div class="save-url" id="save-url"></div>
       <button class="copy-btn" id="copy-btn" onclick="copyLink()">Copy my link</button>
       <br>
@@ -703,7 +671,7 @@ contact_page = f"""<!DOCTYPE html>
     input, textarea {{ width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; font-family: 'Inter', sans-serif; background: var(--white); color: var(--ink); transition: border-color 0.2s; }}
     input:focus, textarea:focus {{ outline: none; border-color: var(--accent); }}
     textarea {{ height: 140px; resize: vertical; }}
-    .submit-btn {{ background: var(--accent); color: white; padding: 14px 32px; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.2s; }}
+    .submit-btn {{ background: var(--accent); color: white; padding: 14px 32px; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: 600; cursor: pointer; width: 100%; }}
     .submit-btn:hover {{ background: #1d4ed8; }}
     .back {{ display: inline-block; margin-bottom: 32px; font-size: 0.85rem; color: var(--accent); text-decoration: none; }}
   </style>
@@ -764,13 +732,13 @@ legal_html = f"""<!DOCTYPE html>
   <h1>Privacy Policy & Terms</h1>
   <p class="updated">Last updated: {today.strftime('%B %d, %Y')} · Operated from Switzerland</p>
   <h2>Who we are</h2>
-  <p>Daily Guides is an independent digital publishing project operated by a private individual based in Switzerland. For any enquiries, use the <a href="/auto-income-bot/contact.html">contact form</a>.</p>
+  <p>Daily Guides is an independent digital publishing project operated by a private individual based in Switzerland. For enquiries, use the <a href="/auto-income-bot/contact.html">contact form</a>.</p>
   <h2>What we sell</h2>
-  <p>We sell digital guides delivered via permanent web access immediately after purchase. All content is informational and educational only. Nothing on this site constitutes professional financial, medical, legal, or psychological advice.</p>
+  <p>We sell digital guides delivered via permanent web access immediately after purchase. All content is informational and educational only. Nothing constitutes professional financial, medical, legal, or psychological advice.</p>
   <h2>Payments</h2>
   <p>All payments are processed securely by Stripe. We do not store your payment details. <a href="https://stripe.com/privacy" target="_blank">Stripe's privacy policy</a> applies to all transactions.</p>
   <h2>Access to purchased content</h2>
-  <p>After a one-time purchase, you are redirected immediately to a permanent private guide URL. After subscribing, you receive a personal archive link valid for the duration of your subscription. We recommend saving your link in your notes or emailing it to yourself.</p>
+  <p>After a one-time purchase, you are redirected immediately to a permanent private guide URL. After subscribing, you receive a personal archive link valid for the duration of your subscription. Save your link in your notes or email it to yourself.</p>
   <h2>Subscriptions</h2>
   <p>Subscriptions are billed monthly at $6.99 and can be cancelled at any time via Stripe. Access continues until the end of the current billing period.</p>
   <h2>EU Right of Withdrawal</h2>
@@ -784,7 +752,7 @@ legal_html = f"""<!DOCTYPE html>
   <h2>Swiss law</h2>
   <p>This site is operated in compliance with Swiss law (DSG/nDSG). Income is declared as personal income in Switzerland as required by law.</p>
   <h2>Disclaimer</h2>
-  <p>All guides are for informational purposes only. Individual results vary. Nothing constitutes professional advice of any kind. Always consult a qualified professional for important decisions.</p>
+  <p>All guides are for informational purposes only. Individual results vary. Nothing constitutes professional advice of any kind.</p>
 </div>
 {page_footer()}
 </body>
@@ -812,14 +780,14 @@ page_404 = f"""<!DOCTYPE html>
 </div>
 <div class="wrap">
   <h1>Page not found</h1>
-  <p>The page you're looking for doesn't exist. Head back to the homepage to browse all available guides.</p>
+  <p>The page you're looking for doesn't exist. Head back to browse all available guides.</p>
   <a href="/auto-income-bot/">Back to Daily Guides →</a>
 </div>
 {page_footer()}
 </body>
 </html>"""
 
-# ── SITEMAP ───────────────────────────────────────────────────────────────────
+# ── SITEMAP & ROBOTS ──────────────────────────────────────────────────────────
 sitemap = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>{SITE_URL}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
@@ -827,7 +795,6 @@ sitemap = f"""<?xml version="1.0" encoding="UTF-8"?>
   <url><loc>{SITE_URL}/contact.html</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
 </urlset>"""
 
-# ── ROBOTS.TXT ────────────────────────────────────────────────────────────────
 robots = f"""User-agent: *
 Allow: /auto-income-bot/
 Allow: /auto-income-bot/legal.html
@@ -840,23 +807,24 @@ Sitemap: {SITE_URL}/sitemap.xml"""
 
 # ── Write all files ───────────────────────────────────────────────────────────
 print("💾 Writing all pages...")
-files = {
-    "docs/index.html":         build_homepage(),
-    "docs/today.html":         sales_html,
-    f"docs/guides/{DATE_STR}.html": guide_page,
-    "docs/archive.html":       build_archive(),
-    "docs/redirect.html":      redirect_page,
-    "docs/sub-redirect.html":  sub_redirect,
-    "docs/contact.html":       contact_page,
-    "docs/legal.html":         legal_html,
-    "docs/404.html":           page_404,
-    "docs/sitemap.xml":        sitemap,
-    "docs/robots.txt":         robots,
-}
+os.makedirs("docs/guides", exist_ok=True)
 if not os.path.exists(blocklist_file):
     with open(blocklist_file, "w") as f:
         json.dump([], f)
 
+files = {
+    "docs/index.html":              build_homepage(),
+    "docs/today.html":              sales_html,
+    f"docs/guides/{DATE_STR}.html": guide_page,
+    "docs/archive.html":            build_archive(),
+    "docs/redirect.html":           redirect_page,
+    "docs/sub-redirect.html":       sub_redirect,
+    "docs/contact.html":            contact_page,
+    "docs/legal.html":              legal_html,
+    "docs/404.html":                page_404,
+    "docs/sitemap.xml":             sitemap,
+    "docs/robots.txt":              robots,
+}
 for path, content in files.items():
     with open(path, "w", encoding="utf-8") as f:
         f.write(content)
