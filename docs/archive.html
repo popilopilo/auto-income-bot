@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>Full Archive — Daily Guides</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1a2e; --ink-light: #4a4a6a; --accent: #2563eb;
+    --accent-light: #eff6ff; --border: #e5e7eb; --bg: #fafaf8; --white: #ffffff;
+    --green: #166534; --green-light: #f0fdf4; --green-border: #bbf7d0;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.75; }
+  .topbar {
+    background: var(--white); border-bottom: 1px solid var(--border);
+    padding: 14px 24px; display: flex; justify-content: space-between;
+    align-items: center; font-size: 0.82rem; color: var(--ink-light);
+  }
+  .topbar-logo { font-family: 'Lora', serif; font-weight: 700; font-size: 1rem; color: var(--ink); text-decoration: none; }
+  footer {
+    text-align: center; padding: 40px 24px; font-size: 0.78rem;
+    color: var(--ink-light); border-top: 1px solid var(--border); background: var(--white);
+  }
+  footer a { color: var(--ink-light); text-decoration: underline; }
+  .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 12px; flex-wrap: wrap; }
+
+    .access-bar { background: var(--green-light); border-bottom: 1px solid var(--green-border); padding: 12px 24px; text-align: center; font-size: 0.85rem; color: var(--green); font-weight: 500; }
+    .wrap { max-width: 780px; margin: 0 auto; padding: 48px 24px; }
+    .wrap h1 { font-family: 'Lora', serif; font-size: clamp(1.6rem,3vw,2.2rem); font-weight: 700; margin-bottom: 8px; }
+    .wrap .sub { color: var(--ink-light); font-size: 0.95rem; margin-bottom: 32px; }
+    .guides-grid { display: flex; flex-direction: column; gap: 14px; }
+    .guide-card { display: block; background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 22px 26px; text-decoration: none; color: inherit; transition: border-color 0.2s, box-shadow 0.2s; }
+    .guide-card:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(37,99,235,0.08); }
+    .card-date { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 5px; }
+    .card-title { font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 700; color: var(--ink); margin-bottom: 5px; line-height: 1.3; }
+    .card-tagline { font-size: 0.85rem; color: var(--ink-light); margin-bottom: 12px; }
+    .card-cta { font-size: 0.8rem; font-weight: 600; color: var(--accent); }
+    @media(max-width:600px) { .wrap { padding: 32px 16px; } }
+  </style>
+  <script>
+    window.onload = function() {
+      var params = new URLSearchParams(window.location.search);
+      var subCode = params.get('sub');
+      if (!subCode || subCode.length < 8) {
+        window.location.href = '/auto-income-bot/';
+        return;
+      }
+      // Check blocklist
+      fetch('/auto-income-bot/blocklist.json')
+        .then(r => r.json())
+        .then(function(blocked) {
+          if (blocked.includes(subCode)) {
+            document.getElementById('content').innerHTML = '<div style="text-align:center;padding:60px 24px"><h2>Access revoked</h2><p style="margin-top:12px;color:#6b7280">Your subscription has been cancelled. <a href="https://buy.stripe.com/00wcN54sU1UF1Qd1Ld9fW02">Resubscribe here</a>.</p></div>';
+          }
+        }).catch(function() {});
+    };
+  </script>
+</head>
+<body>
+<div class="topbar">
+  <a href="/auto-income-bot/" class="topbar-logo">Daily Guides</a>
+  <span style="font-size:0.82rem;color:var(--green);font-weight:500">✓ Subscriber access</span>
+</div>
+<div class="access-bar">✓ Subscriber — you have access to all 1 guides</div>
+<div class="wrap" id="content">
+  <h1>Full Guide Archive</h1>
+  <p class="sub">1 guides available · New one added every day</p>
+  <div class="guides-grid"><a class="guide-card" href="/auto-income-bot/guides/2026-05-12.html?key=dg7x9k2m">
+      <div class="card-date">May 12, 2026</div>
+      <div class="card-title">A Beginner's Guide to Personal Finance in Your 20s</div>
+      <div class="card-tagline">Learning to manage your money at a young age matters</div>
+      <span class="card-cta">Read guide →</span>
+    </a></div>
+</div>
+<footer>
+  <div class="footer-links">
+    <a href="/auto-income-bot/">All guides</a>
+    <a href="/auto-income-bot/legal.html">Privacy & Terms</a>
+    <a href="/auto-income-bot/contact.html">Contact</a>
+  </div>
+  <p>© 2026 Daily Guides · New guide every day</p>
+  <p style="margin-top:6px;font-size:0.72rem;color:#9ca3af">Guides are informational only and do not constitute professional advice.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="robots" content="noindex"/>
+  <title>Setting up your access...</title>
+  <style>
+    body { font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #fafaf8; }
+    .box { text-align: center; padding: 40px; max-width: 480px; }
+    .spinner { width: 32px; height: 32px; border: 3px solid #e5e7eb; border-top-color: #2563eb; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    h2 { font-size: 1.3rem; margin-bottom: 10px; color: #1a1a2e; }
+    p { color: #6b7280; font-size: 0.88rem; line-height: 1.6; margin-bottom: 16px; }
+    .archive-link { display: inline-block; background: #2563eb; color: white; padding: 12px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.9rem; }
+    .save-url { background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 6px; padding: 10px 14px; font-size: 0.78rem; color: #374151; word-break: break-all; font-family: monospace; margin: 12px 0; text-align: left; }
+    .copy-btn { background: #e5e7eb; border: none; padding: 8px 16px; border-radius: 6px; font-size: 0.82rem; font-weight: 600; cursor: pointer; margin-bottom: 16px; }
+    #loading { display: block; }
+    #content { display: none; }
+  </style>
+  <script>
+    // Simple hash function (same logic as Python's make_sub_code)
+    async function makeSubCode(email) {
+      const salt = 'dailyguides2026';
+      const data = salt + email.toLowerCase().trim();
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(data));
+      const arr = Array.from(new Uint8Array(buf));
+      return arr.map(b => b.toString(16).padStart(2,'0')).join('').slice(0,12);
+    }
+
+    window.onload = async function() {
+      // Get email from Stripe URL param if present, otherwise prompt
+      var params = new URLSearchParams(window.location.search);
+      var email = params.get('prefilled_email') || params.get('customer_email') || '';
+
+      if (!email) {
+        email = prompt('Please enter the email address you used to subscribe:') || '';
+      }
+
+      if (!email) {
+        window.location.href = '/auto-income-bot/';
+        return;
+      }
+
+      var code = await makeSubCode(email);
+
+      // Check blocklist
+      try {
+        var r = await fetch('/auto-income-bot/blocklist.json');
+        var blocked = await r.json();
+        if (blocked.includes(code)) {
+          document.getElementById('loading').style.display = 'none';
+          document.getElementById('content').innerHTML = '<h2>Access revoked</h2><p>Your subscription has been cancelled. <a href="https://buy.stripe.com/00wcN54sU1UF1Qd1Ld9fW02">Resubscribe here →</a></p>';
+          document.getElementById('content').style.display = 'block';
+          return;
+        }
+      } catch(e) {}
+
+      var archiveUrl = '/auto-income-bot/archive.html?sub=' + code;
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('archive-link').href = archiveUrl;
+      document.getElementById('save-url').textContent = window.location.origin + archiveUrl;
+      document.getElementById('content').style.display = 'block';
+    };
+
+    function copyLink() {
+      var url = window.location.origin + document.getElementById('archive-link').getAttribute('href');
+      navigator.clipboard.writeText(url).then(function() {
+        var btn = document.getElementById('copy-btn');
+        btn.textContent = '✓ Copied!';
+        setTimeout(function() { btn.textContent = 'Copy my link'; }, 2000);
+      });
+    }
+  </script>
+</head>
+<body>
+  <div class="box">
+    <div id="loading">
+      <div class="spinner"></div>
+      <strong>Setting up your access...</strong>
+    </div>
+    <div id="content">
+      <h2>✓ Subscription active!</h2>
+      <p>Your personal archive link is ready. Save it somewhere safe — it's yours as long as your subscription is active.</p>
+      <div class="save-url" id="save-url"></div>
+      <button class="copy-btn" id="copy-btn" onclick="copyLink()">Copy my link</button>
+      <br>
+      <a class="archive-link" id="archive-link" href="#">Open full archive →</a>
+      <p style="margin-top:16px;font-size:0.78rem;color:#9ca3af">Tip: email this link to yourself so you never lose it.</p>
+    </div>
+  </div>
+</body>
+</html>

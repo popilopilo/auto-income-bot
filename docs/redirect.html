@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="robots" content="noindex"/>
+  <title>Opening your guide...</title>
+  <style>
+    body { font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #fafaf8; }
+    .box { text-align: center; padding: 40px; }
+    .spinner { width: 32px; height: 32px; border: 3px solid #e5e7eb; border-top-color: #2563eb; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    p { color: #6b7280; font-size: 0.9rem; margin-top: 8px; }
+  </style>
+  <script>
+    window.onload = function() {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('key') !== 'dg7x9k2m') {
+        window.location.href = '/auto-income-bot/';
+      } else {
+        window.location.href = '/auto-income-bot/guides/2026-05-12.html?key=dg7x9k2m';
+      }
+    };
+  </script>
+</head>
+<body>
+  <div class="box">
+    <div class="spinner"></div>
+    <strong>Opening your guide...</strong>
+    <p>You'll be redirected in a moment.</p>
+  </div>
+</body>
+</html>

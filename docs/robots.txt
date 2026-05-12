@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /auto-income-bot/
+Allow: /auto-income-bot/legal.html
+Allow: /auto-income-bot/contact.html
+Disallow: /auto-income-bot/guides/
+Disallow: /auto-income-bot/archive.html
+Disallow: /auto-income-bot/redirect.html
+Disallow: /auto-income-bot/sub-redirect.html
+Sitemap: https://popilopilo.github.io/auto-income-bot//sitemap.xml
