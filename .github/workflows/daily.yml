@@ -25,8 +25,6 @@ jobs:
       - name: Run bot
         env:
           GROQ_API_KEY:            ${{ secrets.GROQ_API_KEY }}
-          STRIPE_SECRET_KEY:       ${{ secrets.STRIPE_SECRET_KEY }}
-          STRIPE_PRICE_ID:         ${{ secrets.STRIPE_PRICE_ID }}
           SITE_URL:                ${{ secrets.SITE_URL }}
           DEVTO_API_KEY:           ${{ secrets.DEVTO_API_KEY }}
           TUMBLR_CONSUMER_KEY:     ${{ secrets.TUMBLR_CONSUMER_KEY }}
@@ -34,6 +32,9 @@ jobs:
           TUMBLR_OAUTH_TOKEN:      ${{ secrets.TUMBLR_OAUTH_TOKEN }}
           TUMBLR_OAUTH_SECRET:     ${{ secrets.TUMBLR_OAUTH_SECRET }}
           TUMBLR_BLOG_NAME:        ${{ secrets.TUMBLR_BLOG_NAME }}
+          STRIPE_SINGLE_URL:       ${{ secrets.STRIPE_SINGLE_URL }}
+          STRIPE_SUB_URL:          ${{ secrets.STRIPE_SUB_URL }}
+          FORMSPREE_ID:            ${{ secrets.FORMSPREE_ID }}
         run: python bot.py
 
       - name: Push site
